@@ -7,48 +7,9 @@ on:
       - '.github/*_TEMPLATE/**'
       - '*.yml'
 
-#defaults:
-#  run:
-#    shell: bash
-    
-
 jobs:
   test:
-    #name: ${{ matrix.runs-on }}
-    runs-on: ubuntu-latest #${{ matrix.runs-on }}
-    #container: ${{ matrix.container }}
-    #strategy:
-    #  fail-fast: false
-    #  matrix:
-    #    container: ['ubuntu:devel', '']
-    #    runs-on: #[windows-2016, windows-latest, ubuntu-16.04, ubuntu-18.04, ubuntu-latest, macos-latest] #macos-11.0
-    #env:
-    #  POWERSHELL_TELEMETRY_OPTOUT: 1
+    runs-on: ubuntu-latest
     steps:
-      - name: Verify Default Environment 
-        run: |
-          echo "GITHUB_REPOSITORY = $GITHUB_REPOSITORY"
-          echo "GH_REPO = $GH_REPO"
-      - name: Test Margen67 Method
-        env:
-          GH_REPO: ${{ env.GITHUB_REPOSITORY }}
-        run: echo "GH_REPO = $GH_REPO"
-      - name: Test After Margen67 Method Step
-        run: echo "GH_REPO = $GH_REPO"
-      - name: Test Official Alternative Method
-        env:
-          GH_REPO: ${{ github.repository }}
-        run: echo "GH_REPO = $GH_REPO"
-      - name: Test Github Environment
-        env:
-          GHT_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
-          GHT_REPO: ${{ env.GH_REPO }}
-          GHT_TOKEN: ${{ env.GITHUB_TOKEN }}
-          GHT_SHA: ${{ env.GITHUB_SHA }}
-          GHT_REF: ${{ env.GITHUB_REF }}
-        run: |
-          echo "GITHUB_REPOSITORY = $GHT_REPOSITORY"
-          echo "GH_REPO = $GHT_REPO"
-          echo "GITHUB_TOKEN = $GHT_TOKEN"
-          echo "GITHUB_SHA = $GHT_SHA"
-          echo "GITHUB_REF = $GHT_REF"
+      - uses: actions/checkout@v2
+      - run: gh release create test
