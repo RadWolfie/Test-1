@@ -13,3 +13,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: gh release create test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
